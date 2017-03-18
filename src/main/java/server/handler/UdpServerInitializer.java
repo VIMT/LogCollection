@@ -1,4 +1,4 @@
-package edu.uestc.j8.server.handler;
+package server.handler;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

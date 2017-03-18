@@ -1,10 +1,11 @@
-package udp_test;
+package server.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
+import io.netty.util.CharsetUtil;
 
 import java.net.InetAddress;
 
@@ -14,7 +15,7 @@ import java.net.InetAddress;
  * Time: 2017/3/15 14:47
  * Description:
  */
-public class SimpleUdpServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {
+public class UdpMsgDecoder extends SimpleChannelInboundHandler<DatagramPacket> {
 
 
     @Override
@@ -22,7 +23,7 @@ public class SimpleUdpServerHandler extends SimpleChannelInboundHandler<Datagram
         InetAddress address = msg.sender().getAddress();
         ByteBuf buf = msg.content();
         byte[] rcvPktBuf = new byte[buf.readableBytes()];
-        ctx.fireChannelRead(new String(rcvPktBuf));
+        ctx.fireChannelRead(msg.content().toString(CharsetUtil.UTF_8));
 
     }
 

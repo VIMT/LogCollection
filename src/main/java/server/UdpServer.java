@@ -1,6 +1,6 @@
-package edu.uestc.j8.server;
+package server;
 
-import edu.uestc.j8.server.handler.UdpServerInitializer;
+import server.handler.UdpServerInitializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.nio.NioEventLoopGroup;

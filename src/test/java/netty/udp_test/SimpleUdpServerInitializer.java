@@ -1,15 +1,8 @@
-package udp_test;
+package netty.udp_test;
 
-import com.google.protobuf.DynamicMessage;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioDatagramChannel;
-import io.netty.handler.codec.DatagramPacketDecoder;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.Delimiters;
-import io.netty.handler.codec.protobuf.ProtobufDecoder;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
 
 /**
  * User: Tao

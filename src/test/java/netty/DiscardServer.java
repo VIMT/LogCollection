@@ -1,4 +1,4 @@
-/**
+package netty; /**
  * User: Tao
  * Email: 562593188@qq.com
  * Time: 2017/3/13 20:59
@@ -6,12 +6,10 @@
  */
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.util.ReferenceCountUtil;
 import org.junit.Test;
 
 /**
