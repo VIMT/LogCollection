@@ -15,3 +15,6 @@
 
 1. 使用基于Java NIO的Netty，系统底层使用`epoll()`非阻塞忙轮询的I/O方式，加上UDP的传输方式，可以处理极高的并发数据
 2. 使用Redis和HDFS，方便将缓存和文件存储做成分布式，提高负载上限
+
+## 坑
+- hdfs 远程客户端要设置用户  -DHADOOP_USER_NAME=hadoop

@@ -8,7 +8,10 @@ package utils;
  */
 public class Constants {
 
-    public final static String HOST = "149.56.225.59";
+    public final static String REDISHOST = "123.207.20.248";
     public final static int PORT = 6379;
+    public final static String LOGMQ = "logMQ";
+    public final static String HDFSHOST = "hdfs://127.0.0.1:9000/";
+    public final static String LOGPATH = HDFSHOST + "log/collect.log";
 
 }

@@ -15,7 +15,7 @@ public class RedisJava {
     public void testConnect() {
         //连接本地的 Redis 服务
         Jedis jedis = new Jedis("149.56.225.59");
-        System.out.println("Connection to server sucessfully");
+        System.out.println("Connection to server successfully");
         //查看服务是否运行
         System.out.println("Server is running: " + jedis.ping());
     }

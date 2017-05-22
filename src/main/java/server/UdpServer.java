@@ -1,5 +1,8 @@
 package server;
 
+import io.netty.channel.Channel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import server.handler.UdpServerInitializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -13,6 +16,7 @@ import io.netty.channel.socket.nio.NioDatagramChannel;
  * Description:
  */
 public class UdpServer {
+    private static final Logger log = LoggerFactory.getLogger(UdpServer.class);
 
     private int port;
 
@@ -29,14 +33,15 @@ public class UdpServer {
                     .channel(NioDatagramChannel.class)
                     .handler(new UdpServerInitializer());
 
-            System.out.println("UdpServer 启动了");
+            log.info("UdpServer 启动了");
 
             //这一串都是干嘛的，sync  await?
-            ChannelFuture f = b.bind(port).sync();
-            f.channel().closeFuture().await();
+            ChannelFuture sync = b.bind(port).sync();
+            sync.channel().closeFuture().await();
+
         } finally {
             group.shutdownGracefully();
-            System.out.println("UdpServer 关闭了");
+            log.info("UdpServer 关闭了");
         }
 
     }

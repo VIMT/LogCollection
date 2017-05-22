@@ -27,6 +27,7 @@ public class SimpleUdpServerHandler extends SimpleChannelInboundHandler<Datagram
         ByteBuf buf = msg.content();
         byte[] rcvPktBuf = new byte[buf.readableBytes()];
         String str = new String(rcvPktBuf);
+        String s = buf.toString();
 
         String req = msg.content().toString(CharsetUtil.UTF_8);
 
