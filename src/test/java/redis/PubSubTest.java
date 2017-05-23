@@ -3,7 +3,7 @@ package redis;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
-import utils.Constants;
+import utils.Layouts;
 
 import java.util.Date;
 
@@ -65,7 +65,7 @@ public class PubSubTest {
 
     @Test
     public static void test() throws Exception {
-        PubClient pubClient = new PubClient(Constants.REDISHOST, Constants.PORT);
+        PubClient pubClient = new PubClient("127.0.0.1", 6379);
         final String channel = "pub";
         pubClient.pub(channel, "before1");
         pubClient.pub(channel, "before2");
@@ -77,7 +77,7 @@ public class PubSubTest {
 
         Thread subThread = new Thread(() -> {
             try {
-                SubClient subClient = new SubClient(Constants.REDISHOST, Constants.PORT);
+                SubClient subClient = new SubClient("127.0.0.1", 6379);
                 System.out.println("----------subscribe operation begin-------");
                 JedisPubSub listener = new MessageHandler();
                 //在API级别，此处为轮询操作，直到unsubscribe调用，才会返回

@@ -29,7 +29,7 @@ public class UdpServerInitializer extends ChannelInitializer<NioDatagramChannel>
         pipeline.addLast("decode", new SimpleChannelInboundHandler<DatagramPacket>() {
             @Override
             protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) throws Exception {
-                ctx.fireChannelRead(msg.content().toString(CharsetUtil.UTF_8));
+                ctx.fireChannelRead("[" + msg.sender() + "] " + msg.content().toString(CharsetUtil.UTF_8));
             }
         });
         pipeline.addLast("handler", new UdpMsgDecoder());

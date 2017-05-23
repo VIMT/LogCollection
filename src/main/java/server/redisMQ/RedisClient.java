@@ -1,9 +1,7 @@
 package server.redisMQ;
 
 import redis.clients.jedis.Jedis;
-import static utils.Constants.REDISHOST;
-import static utils.Constants.LOGMQ;
-import static utils.Constants.PORT;
+import utils.Layouts;
 
 import java.util.List;
 
@@ -15,20 +13,26 @@ import java.util.List;
  */
 public class RedisClient {
 
-    private static final Jedis jedis = getJedis() ;
+    private static final Layouts LAYOUTS = Layouts.getInstance();
+
+    private static final Jedis jedis = getJedis();
 
     private static Jedis getJedis() {
-        Jedis jedis = new Jedis(REDISHOST, PORT, 10000);
-        jedis.auth("");
+        Jedis jedis = new Jedis(LAYOUTS.getRedisAddress(), LAYOUTS.getRedisPort(), 10000);
+        jedis.auth(LAYOUTS.getRedisAuth());
         return jedis;
     }
+
     public void addLog(String msg) {
-        jedis.lpush(LOGMQ, msg);
+        jedis.lpush(LAYOUTS.getRedisLogName(), msg);
     }
 
     public String getLog() {
-        List<String> pop = jedis.brpop(60, LOGMQ);
+        List<String> pop = jedis.brpop(LAYOUTS.getStoreTime(), LAYOUTS.getRedisLogName());
         //0为key, 1为value
-        return pop.get(1);
+        if (pop.size() > 0) {
+            return pop.get(1);
+        }
+        return null;
     }
 }

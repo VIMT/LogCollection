@@ -16,7 +16,7 @@ public class UdpMsgDecoder extends SimpleChannelInboundHandler<String> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
-        redisClient.addLog(ctx.channel().remoteAddress() + " " + msg);
+        redisClient.addLog(msg);
     }
 
     @Override
