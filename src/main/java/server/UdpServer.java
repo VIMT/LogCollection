@@ -8,6 +8,7 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
+import utils.Layouts;
 
 /**
  * User: Tao
@@ -16,6 +17,7 @@ import io.netty.channel.socket.nio.NioDatagramChannel;
  * Description:
  */
 public class UdpServer {
+    private static final Layouts LAYOUTS = Layouts.getInstance();
     private static final Logger log = LoggerFactory.getLogger(UdpServer.class);
 
     private int port;
@@ -25,29 +27,21 @@ public class UdpServer {
     }
 
     public void run() throws Exception {
-        //这个group到底是干嘛的，两个group和一个group有什么区别
         NioEventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
                     .channel(NioDatagramChannel.class)
                     .handler(new UdpServerInitializer());
-
             log.info("UdpServer 启动了");
-
-            //这一串都是干嘛的，sync  await?
             ChannelFuture sync = b.bind(port).sync();
             sync.channel().closeFuture().await();
-
         } finally {
             group.shutdownGracefully();
             log.info("UdpServer 关闭了");
         }
-
     }
-
     public static void main(String[] args) throws Exception {
-
-        new UdpServer(7070).run();
+        new UdpServer(LAYOUTS.getListenPort()).run();
     }
 }

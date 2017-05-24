@@ -4,7 +4,11 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigBeanFactory;
 import com.typesafe.config.ConfigFactory;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 /**
@@ -15,9 +19,6 @@ import java.util.Properties;
  */
 public class Layouts {
     private static final Layouts instance = new Layouts();
-
-    private static final String FILENAME = "config.properties";
-
     private final String redisAddress;
     private final int redisPort;
     private final String redisLogName;
@@ -26,6 +27,7 @@ public class Layouts {
     private final String hdfsLogPath;
     private final int storeTime;
     private final int storeSize;
+    private final int listenPort;
 
     public static Layouts getInstance() {
         return instance;
@@ -41,9 +43,15 @@ public class Layouts {
         hdfsLogPath = hdfsHost + config.getString("hdfs.log.path");
         storeTime = config.getInt("store.time");
         storeSize = config.getInt("store.size");
+        listenPort = config.getInt("listen.port");
     }
 
     private Config getConfig() {
+        Path path = Paths.get(System.getProperty("user.dir"), "config.properties");
+        Config c = ConfigFactory.parseFile(path.toFile());
+        if (!c.isEmpty()) {
+            return c;
+        }
         return ConfigFactory.load("config.properties");
     }
 
@@ -77,5 +85,9 @@ public class Layouts {
 
     public int getStoreSize() {
         return storeSize;
+    }
+
+    public int getListenPort() {
+        return listenPort;
     }
 }
