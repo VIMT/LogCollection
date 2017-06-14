@@ -18,3 +18,11 @@
 
 ## 坑
 - hdfs 远程客户端要设置用户  -DHADOOP_USER_NAME=hadoop
+
+## 使用
+修改config.properties 中的内容，配置解析在Layouts.java，简单的写了一个外部化配置
+启动点：
+- StorageServer.java redis消费与HDFS存储
+- UdpServer.java 端口监听，redis消息生产
+
+可以通过改pom.xml中的main.class指定main文件，打成两个jar包来跑
